@@ -27,12 +27,16 @@ A modern, responsive patient management system built with React, TypeScript, Tai
 
 2. Install dependencies:
    ```sh
-   npm install
+   # npm install 
+        or 
+   # pnpm install   
    ```
 
 3. Start the development server:
    ```sh
-   npm run dev
+    # npm run dev
+        or
+    # pnpm dev   
    ```
 
 4. Open [http://localhost:5173](http://localhost:5173) in your browser.

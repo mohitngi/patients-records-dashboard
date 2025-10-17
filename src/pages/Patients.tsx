@@ -27,8 +27,22 @@ const medicationSets = [
   ["Vitamin D3 60000 IU weekly"]
 ];
 
+// Define the shape of the JSON Placeholder user object
+interface JsonPlaceholderUser {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  address: {
+    street: string;
+    suite: string;
+    city: string;
+    zipcode: string;
+  };
+}
+
 // Transform JSON Placeholder user data to Patient format
-const transformToPatient = (user: any): Patient => {
+const transformToPatient = (user: JsonPlaceholderUser): Patient => {
   const age = 25 + Math.floor(Math.random() * 40); // Random age 25-65
   const diagnosisIndex = parseInt(user.id) % diagnoses.length;
   
@@ -56,26 +70,6 @@ const Patients = () => {
   const [isAddFormOpen, setIsAddFormOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
-  // Function to delete a patient
-  const deletePatient = async (id: string) => {
-    try {
-      const response = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`, {
-        method: 'DELETE',
-      });
-      
-      if (!response.ok) {
-        throw new Error('Failed to delete patient');
-      }
-      
-      // Update the local state to remove the deleted patient
-      setPatients(patients.filter(patient => patient.id !== id));
-      toast.success('Patient deleted successfully');
-    } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Failed to delete patient';
-      toast.error(errorMessage);
-    }
-  };
 
   // Fetch patients from JSON Placeholder API
   useEffect(() => {
@@ -207,7 +201,6 @@ const Patients = () => {
               key={patient.id}
               patient={patient}
               onViewDetails={handleViewDetails}
-              onDelete={deletePatient}
             />
           ))}
         </div>

@@ -1,21 +1,14 @@
 import { Patient } from "@/types/patient";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { User, Phone, Calendar, Trash2 } from "lucide-react";
+import { Eye, User, Calendar, Phone } from "lucide-react";
 
 interface PatientCardProps {
   patient: Patient;
   onViewDetails: (patient: Patient) => void;
-  onDelete: (id: string) => void;
 }
 
-const PatientCard = ({ patient, onViewDetails, onDelete }: PatientCardProps) => {
-  const handleDelete = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (window.confirm(`Are you sure you want to delete ${patient.name}?`)) {
-      onDelete(patient.id);
-    }
-  };
+const PatientCard = ({ patient, onViewDetails }: PatientCardProps) => {
 
   return (
     <Card 
@@ -47,15 +40,6 @@ const PatientCard = ({ patient, onViewDetails, onDelete }: PatientCardProps) => 
             </div>
           </div>
 
-          <Button
-            variant="ghost"
-            size="icon"
-            className="text-destructive hover:text-destructive hover:bg-destructive/10"
-            onClick={handleDelete}
-          >
-            <Trash2 className="h-4 w-4" />
-            <span className="sr-only">Delete</span>
-          </Button>
         </div>
       </CardContent>
     </Card>
